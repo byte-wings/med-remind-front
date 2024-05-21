@@ -41,5 +41,8 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-//   border: 2px solid red;
+  flex-direction: ${(props) =>
+    props.$flexDirection ? props.$flexDirection : ""};
+  margin: 0 auto;
+  border: 2px solid red;
 `;

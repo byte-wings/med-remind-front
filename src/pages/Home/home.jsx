@@ -1,6 +1,12 @@
+import { Container } from "../../styles/globalStyles"
+import { HomeContain } from "./homeStyles"
 
 export const Home = () => {
   return (
-    <div>home</div>
+    <HomeContain>
+        <Container>
+
+        </Container>
+    </HomeContain>
   )
 }
