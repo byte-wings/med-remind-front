@@ -90,3 +90,18 @@ export const NumberCodeInput = styled.div`
   display: ${(props) => props.display};
   border: 2px solid ${theme.colors.darkBlue};
 `;
+
+export const SendAgainText = styled.div`
+  width: 100%;
+  text-align: start;
+  font-size: 13px;
+  font-weight: 500;
+  user-select: none;
+  margin-left: -25px;
+`;
+
+export const CustomSpan = styled.span`
+  color: ${theme.colors.darkBlue};
+  margin-left: 5px;
+  cursor: pointer;
+`;

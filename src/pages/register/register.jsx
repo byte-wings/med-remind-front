@@ -16,6 +16,8 @@ import {
   CodeSendTime,
   NumberCodeInput,
   CodeInput,
+  SendAgainText,
+  CustomSpan
 } from "./registerStyle";
 
 export const Register = () => {
@@ -29,13 +31,16 @@ export const Register = () => {
 
   // Send code time
   const [codeTime, setCodeTime] = useState(59);
+  const [sendMsgAgain, setSendMsgAgain] = useState(false);
+  const [newCodeTime, setNewCodeTime] = useState(false)
   useEffect(() => {
     let interval;
-    if (!hiddenInput) {
+    if (!hiddenInput || newCodeTime) {
       interval = setInterval(() => {
         setCodeTime((prevCodeTime) => {
           if (prevCodeTime <= 1) {
             clearInterval(interval);
+            setNewCodeTime(false)
             return 0;
           }
           return prevCodeTime - 1;
@@ -43,9 +48,18 @@ export const Register = () => {
       }, 1000);
     } else {
       setCodeTime(59);
+      setNewCodeTime(false)
     }
     return () => clearInterval(interval);
-  }, [hiddenInput]);
+  }, [hiddenInput, newCodeTime]);
+
+  useEffect(() => {
+    if (codeTime === 0) {
+      setSendMsgAgain(true);
+    } else {
+      setSendMsgAgain(false);
+    }
+  }, [codeTime]);
 
   // Check input values
   useEffect(() => {
@@ -63,6 +77,14 @@ export const Register = () => {
     setHiddenInput(false);
     console.log(e);
   };
+
+  const handleSendAgain = (e) => {
+    e.preventDefault();
+    console.log("Sent again");
+    setCodeTime(59)
+    setNewCodeTime(true)
+  }
+  
   return (
     <RegisterContain>
       <Container>
@@ -88,6 +110,12 @@ export const Register = () => {
               />
               <CodeSendTime>{codeTime}</CodeSendTime>
             </NumberCodeInput>
+            {sendMsgAgain && (
+              <SendAgainText>
+                SMS kod kelmadi.
+                <CustomSpan onClick={handleSendAgain}>Qayta yuboring</CustomSpan>
+              </SendAgainText>
+            )}
             <RegisterFormButton type="submit" disabled={disabled}>
               Kirish
             </RegisterFormButton>
