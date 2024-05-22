@@ -40,21 +40,21 @@ export const RegisterSubtitle = styled.div`
 export const RegisterForm = styled.form`
   width: 100%;
   display: flex;
+  gap: 15px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 15px;
   margin-top: 50px;
 `;
 export const RegisterFormInput = styled.input`
   width: 100%;
   height: 45px;
-  border: 2px solid ${theme.colors.darkBlue};
   outline: none;
   border-radius: 10px;
   padding: 0 15px;
   font-size: 16px;
   font-weight: 600;
+  border: 2px solid ${theme.colors.darkBlue};
 
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);

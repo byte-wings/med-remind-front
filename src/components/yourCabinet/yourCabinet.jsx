@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
 // Icons
 import { GiPill } from "react-icons/gi";
+import { FaPlus } from "react-icons/fa";
+import { MdModeEdit } from "react-icons/md";
 
 // Styles
 import { SectionTitle } from "../../pages/Home/homeStyles";
@@ -15,55 +18,52 @@ import {
   AddCabinet,
   CabinetEdit,
 } from "./yourCabinetStyle";
-import { FaPlus } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
+
+// Hooks
+import { useContext } from "react";
+
+// Context
+import { GlobalContext } from "../../context/globalContext";
 
 export const YourCabinet = () => {
+  // Context
+  const { setIsModalActive, cabinetContent, setCabinetId } =
+    useContext(GlobalContext);
+
+  const handleCabinetEdit = (id) => {
+    setCabinetId(id);
+    setIsModalActive(true);
+  };
+
+  const handleActiveModal = () => {
+    setIsModalActive(true)
+    setCabinetId(null)
+  }
+  
   return (
     <YourCabinetContain>
-      <SectionTitle>Sizing kabinetingiz</SectionTitle>
+      <SectionTitle>Sizning kabinetingiz</SectionTitle>
       <YourCabinets>
-        <Cabinet>
-          <CabinetHead>
-            <CabinetPicture>
-              <GiPill />
-            </CabinetPicture>
-            <CabinetHeadTitle>Vitamin A</CabinetHeadTitle>
-            <CabinetEdit>
-              <MdModeEdit />
-            </CabinetEdit>
-          </CabinetHead>
-          <CabinetBody>40 tabletka qoldi</CabinetBody>
-          <CabinetDesc>Ovqatdan keyin</CabinetDesc>
-        </Cabinet>
-        <Cabinet>
-          <CabinetHead>
-            <CabinetPicture>
-              <GiPill />
-            </CabinetPicture>
-            <CabinetHeadTitle>Dimeticon</CabinetHeadTitle>
-            <CabinetEdit>
-              <MdModeEdit />
-            </CabinetEdit>
-          </CabinetHead>
-          <CabinetBody>25 tabletka qoldi</CabinetBody>
-          <CabinetDesc>Ovqatdan oldin</CabinetDesc>
-        </Cabinet>
-        <Cabinet>
-          <CabinetHead>
-            <CabinetPicture>
-              <GiPill />
-            </CabinetPicture>
-            <CabinetHeadTitle>Vitamin C</CabinetHeadTitle>
-            <CabinetEdit>
-              <MdModeEdit />
-            </CabinetEdit>
-          </CabinetHead>
-          <CabinetBody>9 tabletka qoldi</CabinetBody>
-          <CabinetDesc>Och qoringa</CabinetDesc>
-        </Cabinet>
+        {cabinetContent &&
+          cabinetContent.map((item) => {
+            return (
+              <Cabinet key={item.id}>
+                <CabinetHead>
+                  <CabinetPicture>
+                    <GiPill />
+                  </CabinetPicture>
+                  <CabinetHeadTitle>{item.name}</CabinetHeadTitle>
+                  <CabinetEdit onClick={() => handleCabinetEdit(item.id)}>
+                    <MdModeEdit />
+                  </CabinetEdit>
+                </CabinetHead>
+                <CabinetBody>{item.amount} qoldi</CabinetBody>
+                <CabinetDesc>{item.note}</CabinetDesc>
+              </Cabinet>
+            );
+          })}
         <Cabinet display="grid">
-          <AddCabinet>
+          <AddCabinet onClick={handleActiveModal}>
             <FaPlus />
           </AddCabinet>
         </Cabinet>

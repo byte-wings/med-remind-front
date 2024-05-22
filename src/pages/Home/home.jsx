@@ -14,7 +14,16 @@ import { YourNextAppoint } from "../../components/yourNextAppointmet/yourNextApp
 import { YourCabinet } from "../../components/yourCabinet/yourCabinet";
 import { CabinetModal } from "../../components/cabinetModal/cabinetModal";
 
+// Hooks
+import { useContext } from "react";
+
+// Context
+import { GlobalContext } from "../../context/globalContext";
+
 export const Home = () => {
+  // Context
+  const { isModalActive } = useContext(GlobalContext);
+
   return (
     <div>
       <SiteHeader></SiteHeader>
@@ -26,9 +35,9 @@ export const Home = () => {
             {/* Your next appointment */}
             <YourNextAppoint />
             {/* Your cabinet */}
-            <YourCabinet/>
+            <YourCabinet />
             {/* Cabinet Modal */}
-            {/* <CabinetModal/> */}
+            {isModalActive && <CabinetModal />}
           </MainHero>
         </Container>
       </HomeContain>
