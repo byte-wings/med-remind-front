@@ -19,8 +19,12 @@ import {
 // User images
 import maleUserImg from "../../assets/userImages/male-user.png";
 import femaleUserImg from "../../assets/userImages/female-user.png";
+import { useState } from "react";
 
 export const SiteHeader = () => {
+  // User gender info
+  const [userGender, setUserGender] = useState("female");
+
   return (
     <HeaderContain>
       <Container>
@@ -41,7 +45,11 @@ export const SiteHeader = () => {
           <HeaderUserInfo>
             <HeaderUserName>Hi&#128075;, Aliya</HeaderUserName>
             <HeaderUserPicture>
-              <img src={maleUserImg} alt="" width="100%" />
+              <img
+                src={userGender === "male" ? maleUserImg : femaleUserImg}
+                alt="user"
+                width="100%"
+              />
             </HeaderUserPicture>
           </HeaderUserInfo>
         </HeaderContent>

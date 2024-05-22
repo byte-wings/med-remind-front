@@ -21,16 +21,33 @@ export const theme = {
 
 // Global styles
 export const GlobalStyle = createGlobalStyle`
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-}
-a {
-    text-decoration: none;
-    color: black;
-}
+  body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      outline: none;
+      border: none;
+      user-select: none;
+      background-color: #E3F2FD;
+  }
+  a {
+      text-decoration: none;
+      color: black;
+  }
+  p {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: ${theme.colors.darkBlue};
+    border-radius: 10px;
+  }
 `;
 
 // Site container
@@ -45,5 +62,5 @@ export const Container = styled.div`
     props.$flexDirection ? props.$flexDirection : ""};
   margin: 0 auto;
   overflow-x: hidden;
-//   border: 2px solid red;
+  //   border: 2px solid red;
 `;
