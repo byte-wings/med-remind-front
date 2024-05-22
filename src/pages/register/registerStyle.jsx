@@ -1,4 +1,7 @@
+// Styled components
 import styled from "styled-components";
+
+// Global variables
 import { theme } from "../../styles/globalStyles";
 
 export const RegisterContain = styled.div`
@@ -53,7 +56,6 @@ export const RegisterFormInput = styled.input`
   font-weight: 600;
 
   &::placeholder {
-    font-weight: 600;
     color: rgba(0, 0, 0, 0.3);
   }
 `;
@@ -71,6 +73,7 @@ export const RegisterFormButton = styled.button`
   letter-spacing: 1px;
   background-color: ${theme.colors.darkBlue};
   border: none;
+  outline: none;
   border-radius: 15px;
   margin-top: 15px;
   cursor: pointer;

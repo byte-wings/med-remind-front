@@ -44,5 +44,6 @@ export const Container = styled.div`
   flex-direction: ${(props) =>
     props.$flexDirection ? props.$flexDirection : ""};
   margin: 0 auto;
-  border: 2px solid red;
+  overflow-x: hidden;
+//   border: 2px solid red;
 `;

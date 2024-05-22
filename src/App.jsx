@@ -6,12 +6,21 @@ import { RootLayout } from "./layouts/rootLayout";
 
 // Pages
 import { Home } from "./pages/Home/home";
+import { Register } from "./pages/register/register";
 
 // Styles
 import { GlobalStyle } from "./styles/globalStyles";
-import { Register } from "./pages/register/register";
+
+
+// Context
+import { GlobalContext } from "./context/globalContext";
+
+// Hooks
+import { useContext } from "react";
 
 function App() {
+  const { accessToken } = useContext(GlobalContext);
+
   const routes = createBrowserRouter([
     {
       path: "/",
@@ -19,11 +28,11 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home />,
+          element: accessToken ? <Home /> : <Register />,
         },
         {
-          path: "/register",
-          element: <Register />,
+          path: "/home",
+          element: <Home />,
         },
       ],
     },

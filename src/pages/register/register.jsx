@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // Site container
-import { useEffect, useState } from "react";
+import { GetUserInfo } from "../../components/getUserInfo/getUserInfo";
 import { Container } from "../../styles/globalStyles";
 
 // Styles
@@ -17,10 +17,23 @@ import {
   NumberCodeInput,
   CodeInput,
   SendAgainText,
-  CustomSpan
+  CustomSpan,
 } from "./registerStyle";
 
+// Hooks
+import { useContext, useEffect, useState } from "react";
+
+// Context
+import { GlobalContext } from "../../context/globalContext";
+
 export const Register = () => {
+  // Component to get user info
+  const getUserInfoComponent = <GetUserInfo />;
+
+  // Context
+  const { accessToken, setAccessToken, refreshToken, setRefreshToken } =
+    useContext(GlobalContext);
+
   // Input values
   const [phoneNumber, setPhoneNumber] = useState("+998");
   const [numberCode, setNumberCode] = useState();
@@ -32,7 +45,7 @@ export const Register = () => {
   // Send code time
   const [codeTime, setCodeTime] = useState(59);
   const [sendMsgAgain, setSendMsgAgain] = useState(false);
-  const [newCodeTime, setNewCodeTime] = useState(false)
+  const [newCodeTime, setNewCodeTime] = useState(false);
   useEffect(() => {
     let interval;
     if (!hiddenInput || newCodeTime) {
@@ -40,7 +53,7 @@ export const Register = () => {
         setCodeTime((prevCodeTime) => {
           if (prevCodeTime <= 1) {
             clearInterval(interval);
-            setNewCodeTime(false)
+            setNewCodeTime(false);
             return 0;
           }
           return prevCodeTime - 1;
@@ -48,7 +61,7 @@ export const Register = () => {
       }, 1000);
     } else {
       setCodeTime(59);
-      setNewCodeTime(false)
+      setNewCodeTime(false);
     }
     return () => clearInterval(interval);
   }, [hiddenInput, newCodeTime]);
@@ -75,52 +88,60 @@ export const Register = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     setHiddenInput(false);
-    console.log(e);
+    if (numberCode) {
+      setRefreshToken("token");
+    }
   };
 
+  // Send message again to number
   const handleSendAgain = (e) => {
     e.preventDefault();
-    console.log("Sent again");
-    setCodeTime(59)
-    setNewCodeTime(true)
-  }
-  
+    setCodeTime(59);
+    setNewCodeTime(true);
+  };
+
   return (
     <RegisterContain>
       <Container>
-        <RegisterFormWrapper>
-          <RegisterTitle>
-            <TitleCustomSpan>Med</TitleCustomSpan>Remind
-          </RegisterTitle>
-          <RegisterSubtitle>Tizimga kirish</RegisterSubtitle>
-          <RegisterForm onSubmit={handleRegister}>
-            <RegisterFormInput
-              type="text"
-              placeholder="Telefon raqamingiz"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              value={phoneNumber}
-              hidden={!hiddenInput}
-            />
-            <NumberCodeInput display={!hiddenInput ? "flex" : "none"}>
-              <CodeInput
+        {refreshToken ? (
+          getUserInfoComponent
+        ) : (
+          <RegisterFormWrapper>
+            <RegisterTitle>
+              <TitleCustomSpan>Med</TitleCustomSpan>Remind
+            </RegisterTitle>
+            <RegisterSubtitle>Tizimga kirish</RegisterSubtitle>
+            <RegisterForm onSubmit={handleRegister}>
+              <RegisterFormInput
                 type="text"
-                placeholder="Kodni kiriting"
-                onChange={(e) => setNumberCode(e.target.value)}
-                hidden={hiddenInput}
+                placeholder="Telefon raqamingiz"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneNumber}
+                hidden={!hiddenInput}
               />
-              <CodeSendTime>{codeTime}</CodeSendTime>
-            </NumberCodeInput>
-            {sendMsgAgain && (
-              <SendAgainText>
-                SMS kod kelmadi.
-                <CustomSpan onClick={handleSendAgain}>Qayta yuboring</CustomSpan>
-              </SendAgainText>
-            )}
-            <RegisterFormButton type="submit" disabled={disabled}>
-              Kirish
-            </RegisterFormButton>
-          </RegisterForm>
-        </RegisterFormWrapper>
+              <NumberCodeInput display={!hiddenInput ? "flex" : "none"}>
+                <CodeInput
+                  type="text"
+                  placeholder="Kodni kiriting"
+                  onChange={(e) => setNumberCode(e.target.value)}
+                  hidden={hiddenInput}
+                />
+                <CodeSendTime>{codeTime}</CodeSendTime>
+              </NumberCodeInput>
+              {sendMsgAgain && (
+                <SendAgainText>
+                  SMS kod kelmadi.
+                  <CustomSpan onClick={handleSendAgain}>
+                    Qayta yuboring
+                  </CustomSpan>
+                </SendAgainText>
+              )}
+              <RegisterFormButton type="submit" disabled={disabled}>
+                Kirish
+              </RegisterFormButton>
+            </RegisterForm>
+          </RegisterFormWrapper>
+        )}
       </Container>
     </RegisterContain>
   );
