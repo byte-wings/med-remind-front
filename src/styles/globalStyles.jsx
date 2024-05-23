@@ -53,7 +53,7 @@ export const GlobalStyle = createGlobalStyle`
 // Site container
 export const Container = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1300px;
   height: max-content;
   display: flex;
   align-items: center;

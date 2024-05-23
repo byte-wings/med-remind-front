@@ -12,7 +12,7 @@ export const HomeContain = styled.div`
 
 export const MainHero = styled.div`
   width: 100%;
-  padding-top: 70px;
+  padding-top: 30px;
   display: flex;
   flex-wrap: wrap;
   gap: 50px;

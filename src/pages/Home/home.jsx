@@ -13,6 +13,7 @@ import { YourNextPill } from "../../components/yourNextPill/yourNextPill";
 import { YourNextAppoint } from "../../components/yourNextAppointmet/yourNextAppnmt";
 import { YourCabinet } from "../../components/yourCabinet/yourCabinet";
 import { CabinetModal } from "../../components/cabinetModal/cabinetModal";
+import { WeaklyDate } from "../../components/weaklyDate/weaklyDate";
 
 // Hooks
 import { useContext } from "react";
@@ -30,6 +31,8 @@ export const Home = () => {
       <HomeContain>
         <Container $flexDirection="column">
           <MainHero>
+            {/* Weakly Date */}
+            <WeaklyDate/>
             {/* Your next pill Section */}
             <YourNextPill />
             {/* Your next appointment */}

@@ -36,14 +36,14 @@ export const SiteHeader = () => {
             </HeaderLogoTitle>
           </HeaderLogo>
           <Nav>
-            <NavListItem href="">Home</NavListItem>
-            <NavListItem href="">Analysis</NavListItem>
-            <NavListItem href="">News</NavListItem>
-            <NavListItem href="">Health Advices</NavListItem>
-            <NavListItem href="">Contact</NavListItem>
+            <NavListItem href="">Asosiy</NavListItem>
+            <NavListItem href="">Analizlar</NavListItem>
+            <NavListItem href="">Yangiliklar</NavListItem>
+            <NavListItem href="">Salomatlik</NavListItem>
+            <NavListItem href="">Bog{"'"}lanish</NavListItem>
           </Nav>
           <HeaderUserInfo>
-            <HeaderUserName>Hi&#128075;, Aliya</HeaderUserName>
+            <HeaderUserName>Salom&#128075;, Rayxona</HeaderUserName>
             <HeaderUserPicture>
               <img
                 src={userGender === "male" ? maleUserImg : femaleUserImg}
