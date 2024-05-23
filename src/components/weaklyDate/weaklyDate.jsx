@@ -1,19 +1,12 @@
 /* eslint-disable no-unused-vars */
 // Styles
-import { useState } from "react";
 import { DateContain, DateTitle, DailyDate, DateBox } from "./weaklyDateStyle";
 
+// Hooks
+import { useState } from "react";
+
 export const WeaklyDate = () => {
-  const newDate = () => {
-    const date = new Date();
-    const today = date.getDate();
-
-    return today;
-  };
-
-  //   setInterval(() => {
-  //     newDate();
-  //   }, 5000);
+    const [currentDate, setCurrentDate] = useState(new Date())
 
   return (
     <DateContain>

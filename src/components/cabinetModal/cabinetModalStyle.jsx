@@ -72,15 +72,15 @@ export const ModalInput = styled.input`
 `;
 
 export const ModalSelect = styled.select`
-    width: 105%;
-    height: 45px;
-    padding: 0 10px;
-    border-radius: 7px;
-    outline: none;
-    border: 2px solid ${theme.colors.darkBlue};
-    font-size: 16px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.4);
+  width: 105%;
+  height: 45px;
+  padding: 0 10px;
+  border-radius: 7px;
+  outline: none;
+  border: 2px solid ${theme.colors.darkBlue};
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.4);
 `;
 
 export const ModalSubmitBtn = styled.button`
@@ -94,4 +94,30 @@ export const ModalSubmitBtn = styled.button`
   font-size: 17px;
   margin-top: 15px;
   background-color: ${theme.colors.primary};
+`;
+
+export const ModalDateTitle = styled.div`
+  width: 105%;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.6);
+`;
+
+export const ModalDateWrapper = styled.div`
+  width: 105%;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+`;
+
+export const AddNewDate = styled.div`
+  width: 105%;
+  display: flex;
+  align-items: center;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
 `;

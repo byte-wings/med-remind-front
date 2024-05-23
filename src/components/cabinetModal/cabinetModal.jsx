@@ -15,6 +15,9 @@ import {
   ModalInput,
   ModalSelect,
   ModalSubmitBtn,
+  ModalDateWrapper,
+  ModalDateTitle,
+  AddNewDate,
 } from "./cabinetModalStyle";
 
 // Icons
@@ -22,6 +25,10 @@ import { IoCloseSharp } from "react-icons/io5";
 
 // Context
 import { GlobalContext } from "../../context/globalContext";
+
+// Icons
+import { FaPlus } from "react-icons/fa";
+import { ModalDate } from "../modalDates/modalDates";
 
 export const CabinetModal = () => {
   // Context
@@ -33,17 +40,20 @@ export const CabinetModal = () => {
   const [selectedOption, setSelectedOption] = useState("pill");
   const [drugAmount, setDrugAmount] = useState("");
   const [drugNote, setDrugNote] = useState("");
+  const [dose, setDose] = useState("");
 
   const clearDrugDetails = () => {
     setDrugName("");
     setDrugAmount("");
     setDrugNote("");
+    setDose("");
   };
 
   const updateDrugDetails = (item) => {
     setDrugName(item.name);
     setDrugAmount(item.amount);
     setDrugNote(item.note);
+    setDose(item.dose);
   };
 
   useEffect(() => {
@@ -54,12 +64,27 @@ export const CabinetModal = () => {
   }, [cabinetId, cabinetContent]);
 
   // Add new cabinet
+
+  // Modal dates
+  const [modalDates, setModalDates] = useState([{ day: "", time: "" }]);
+
+  const handleAddNewDate = () => {
+    setModalDates([...modalDates, { day: "", time: "" }]);
+  };
+
+  const handleDateChange = (index, field, value) => {
+    const newModalDates = modalDates.map((modalDate, i) =>
+      i === index ? { ...modalDate, [field]: value } : modalDate
+    );
+    setModalDates(newModalDates);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const checkedValues = {
       name: drugName.trim(),
       amount: drugAmount.trim(),
+      dose: dose.trim(),
       note: drugNote.trim(),
     };
 
@@ -69,6 +94,7 @@ export const CabinetModal = () => {
           ...item,
           name: checkedValues.name,
           amount: checkedValues.amount,
+          dose: checkedValues.dose,
           note: checkedValues.note,
         };
       }
@@ -85,14 +111,17 @@ export const CabinetModal = () => {
         id: newId,
         name: checkedValues.name,
         amount: checkedValues.amount,
+        dose: checkedValues.dose,
         note: checkedValues.note,
       };
 
       updatedCabinetContent.push(newItem);
     }
-    setCabinetContent(updatedCabinetContent)
+    setCabinetContent(updatedCabinetContent);
     setIsModalActive(false);
   };
+
+  console.log(modalDates);
 
   return (
     <CabinetModalContain>
@@ -129,6 +158,26 @@ export const CabinetModal = () => {
               onChange={(e) => setDrugAmount(e.target.value)}
               hidden={selectedOption === "syrup" ? false : true}
             />
+            <ModalInput
+              type="text"
+              value={dose}
+              placeholder="Dozani kiriting"
+              onChange={(e) => setDose(e.target.value)}
+            />
+            <ModalDateTitle>Vaqtlarni tanlang:</ModalDateTitle>
+            {modalDates.map((modalDate, index) => (
+              <ModalDate
+                key={index}
+                index={index}
+                day={modalDate.day}
+                time={modalDate.time}
+                onChange={handleDateChange}
+              />
+            ))}
+            <AddNewDate onClick={handleAddNewDate}>
+              Kun qo{"'"}shish
+              <FaPlus />
+            </AddNewDate>
             <ModalInput
               type="text"
               value={drugNote}
